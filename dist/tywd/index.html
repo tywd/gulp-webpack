@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>title</title>
+    <script>
+        var docEl=document.documentElement;var dpr=window.devicePixelRatio||1;function refreshRem(){var width=document.documentElement.getBoundingClientRect().width;if(width>740){width=740}var rem=width/7.5;document.documentElement.style.fontSize=rem+"px"}refreshRem();window.addEventListener("resize",refreshRem);window.addEventListener("pageshow",function(e){if(e.persisted){refreshRem()}});docEl.classList.add("dpr-"+dpr);
+        if(dpr>=2){var fakeBody=document.createElement("body");var testElement=document.createElement("div");testElement.style.border=".5px solid transparent";fakeBody.appendChild(testElement);docEl.appendChild(fakeBody);if(testElement.offsetHeight===1){docEl.classList.add("hairlines")}docEl.removeChild(fakeBody)};
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+    <div>头部</div>
+	<div>index</div>
+    <img width="100" src="./images/default.jpeg" alt="">
+	<div>脚部</div>
+	<!-- 此注释用于webpack打包后公共js注入 误删 -->
+	<!-- <script src="js/common.js" type="text/javascript"></script> -->
+	
+    <script src="js/index.js" type="text/javascript"></script>
+</body>
+</html>
