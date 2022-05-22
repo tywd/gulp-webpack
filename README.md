@@ -17,3 +17,5 @@
 
     gulp build --name $项目名 
 
+## 说明
+scripts/_template 支持组件引用，js模块化引入
