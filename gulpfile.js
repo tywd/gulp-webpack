@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 01:26:28
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-22 22:08:51
+ * @LastEditTime: 2022-05-23 00:49:48
  * @FilePath: /gulp4-webpack/gulpfile.js
  * @Description: Do not edit
  */
@@ -26,6 +26,7 @@ exports.publicTask = publicTask
 const gulp = require('gulp'); //gulp插件
 const requireDir = require('require-dir');
 const all = requireDir('./script/gulp_task', { recurse: true }); // 合并tasks
+// console.log('all: ', all);
 
 // cb 回调函数的作用是在task完成时通知Gulp（而不是返回一个流），而task里的所有其他功能都纯粹依赖Node来实现。 或者使用 async & await
 const help = (cb)=>{
@@ -42,6 +43,7 @@ const help = (cb)=>{
 // }
 
 exports.help = help
-exports.init = all.init
+exports.init = all.init.init
+exports.initVue = all.init.initVue
 exports.serve = all.serve
 exports.build = all.build

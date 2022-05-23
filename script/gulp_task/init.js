@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 11:30:33
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-22 11:54:55
+ * @LastEditTime: 2022-05-23 00:48:26
  * @FilePath: /gulp4-webpack/script/gulp_task/init.js
  * @Description: 初始化一个项目
  */
@@ -36,8 +36,28 @@ const init = () => {
 
 };
 
+const initVue = () => {
+    if (args.name == '') {
+        log('needs project name! please gulp initVue --name ${project}');
+        return;
+    }
+    let path = './project/' + args.name;
+
+    if (fs.existsSync(path)) {
+        log('the project name is existing!');
+        return;
+    }
+
+    return gulp.src('./script/_vue_template/**/*')
+        .pipe(gulp.dest(path))
+
+};
+
 function log(text) {
     console.log(text)
 }
 
-module.exports = init
+module.exports = {
+    init,
+    initVue
+}

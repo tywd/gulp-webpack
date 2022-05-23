@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 11:42:17
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-23 00:23:00
+ * @LastEditTime: 2022-05-23 19:33:14
  * @FilePath: /gulp4-webpack/script/gulp_task/serve.js
  * @Description: Do not edit
  */
@@ -23,9 +23,6 @@ const sourcemaps = require('gulp-sourcemaps'); // 一个信息文件，里面存
 const webpackConfig = require("../webpack.config.js")
 const named = require('vinyl-named') // vinyl-named 插件可以解决多页面开发的问题。不至于每次加页面都要去webpack 修改 entry 和 output
 const webpack = require('webpack-stream')
-// const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 
 let knownOptions = {
     string: ['name'],
@@ -95,8 +92,6 @@ const js = () => {
 
 // 浏览器运行webserver
 const devServer = () => {
-    const webpackConfig = require('../webpack.config.js');
-    const webpackCompiler = webpack(webpackConfig);
     return gulp.src(buildProject).pipe(webserver({
         port: 8888,
         livereload: true, // 是否实时加载
@@ -104,16 +99,6 @@ const devServer = () => {
         // path: runProject,
         // directoryListing: true, // 是否开启浏览目录
         middleware: [
-            // webpackDevMiddleware(webpackCompiler, {
-            //     publicPath: webpackConfig.output.publicPath,
-            //     stats: {
-            //         chunks: false,
-            //         colors: true,
-            //     },
-            // }),
-            // webpackHotMiddleware(webpackCompiler,{
-            //     path: '/__webpack_hmr'
-            // }),
             fileMiddleware('../../../' + buildProject) // 运行时中间件
         ],
     }))
