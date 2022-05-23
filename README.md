@@ -17,9 +17,16 @@
 
     gulp build --name $项目名 
 
-## 说明
-scripts/_template 支持组件引用，js模块化引入
-scripts/_vue_template 支持vue模板使用，支持组件引用，js模块化引入
+## 目录说明
+--gulp4-webpack
+    -- dist // 打包目录
+    -- lib // 公用js css 库
+    -- project // 开发目录
+    -- project-serve // 开发目录中编译后运行在浏览器的目录
+    -- script // gulp webpack 等配置目录
+        -- _template html模板 支持组件引用，js模块化引入 即支持 import export
+        -- _vue_template 支持vue模板使用，支持组件引用，js模块化引入
+
 
 ## package.json 部分说明
 ```js
