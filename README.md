@@ -19,6 +19,7 @@
 
 ## 说明
 scripts/_template 支持组件引用，js模块化引入
+scripts/_vue_template 支持vue模板使用，支持组件引用，js模块化引入
 
 ## package.json 部分说明
 ```js
