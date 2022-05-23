@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.35",
+    "@vue/composition-api": "^1.6.2",
     "del": "^6.1.0",
     "fs": "0.0.1-security",
     "fs-extra": "^10.1.0",
@@ -35,10 +35,8 @@
     "vinyl-named": "^1.1.0",
     "vue": "^2.6.1",
     "vue-loader": "^15.7.1",
-    "vue-template-compiler": "^2.6.1",
+    "vue-template-compiler": "^2.6.14",
     "webpack-stream": "^6.1.2"
   },
-  "dependencies": {
-    "webpack": "^4.5.0"
-  }
+  "dependencies": {}
 }
