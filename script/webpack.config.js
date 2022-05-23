@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 23:16:11
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-23 19:42:50
+ * @LastEditTime: 2022-05-23 19:50:46
  * @FilePath: /gulp4-webpack/script/webpack.config.js
  * @Description: Do not edit
  */
@@ -15,7 +15,7 @@ const {
 
 module.exports = {
     mode: 'development',
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'eval-cheap-module-source-map', // 开发环境定位bug 需要sourcemap
     // entry: {
     //     index: path.resolve(__dirname, '../project/tywd/js/index.js'),
     // },

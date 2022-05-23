@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 11:42:17
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-23 19:33:14
+ * @LastEditTime: 2022-05-23 19:53:38
  * @FilePath: /gulp4-webpack/script/gulp_task/serve.js
  * @Description: Do not edit
  */
@@ -31,8 +31,10 @@ let knownOptions = {
     }
 };
 let args = minimist(process.argv.slice(2), knownOptions);
-const runProject = 'project/' + args.name
-const buildProject = 'dist/' + args.name
+const runProject = 'project/' + args.name // 开发环境目录
+const serveProject = 'project-serve/' + args.name // 开发编译后浏览器真正运行的环境目录
+const buildProject = 'dist/' + args.name // 打包目录
+
 
 // html处理
 const html = () => {
@@ -45,7 +47,7 @@ const html = () => {
             prefix: '@@', // 引用符号
             basepath: runProject + '/components' // 引用文件路径
         }))
-        .pipe(gulp.dest(buildProject))
+        .pipe(gulp.dest(serveProject))
 }
 
 // scss处理
@@ -67,13 +69,13 @@ const scss = () => {
                 "Firefox ESR"
             ]
         })) //自动添加浏览器样式前缀
-        .pipe(gulp.dest(buildProject + '/css'))
+        .pipe(gulp.dest(serveProject + '/css'))
 }
 
 // 图片处理
 const images = () => {
     return gulp.src([runProject + '/images/**/*.{png,jpg,gif,jpeg,ico}']) //后缀都用小写，不然不识别
-        .pipe(gulp.dest(buildProject + '/images'))
+        .pipe(gulp.dest(serveProject + '/images'))
 }
 
 // js处理
@@ -85,21 +87,21 @@ const js = () => {
         }))
         .pipe(webpack(webpackConfig))
         .pipe(plumber())
-        .pipe(gulp.dest(buildProject + '/js'))
+        .pipe(gulp.dest(serveProject + '/js'))
 }
 
 
 
 // 浏览器运行webserver
 const devServer = () => {
-    return gulp.src(buildProject).pipe(webserver({
+    return gulp.src(serveProject).pipe(webserver({
         port: 8888,
         livereload: true, // 是否实时加载
         open: true, // 是否自动打开
         // path: runProject,
         // directoryListing: true, // 是否开启浏览目录
         middleware: [
-            fileMiddleware('../../../' + buildProject) // 运行时中间件
+            fileMiddleware('../../../' + serveProject) // 运行时中间件
         ],
     }))
 }
