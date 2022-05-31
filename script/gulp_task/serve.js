@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 11:42:17
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-23 19:53:38
+ * @LastEditTime: 2022-05-31 22:06:56
  * @FilePath: /gulp4-webpack/script/gulp_task/serve.js
  * @Description: Do not edit
  */
@@ -23,7 +23,9 @@ const sourcemaps = require('gulp-sourcemaps'); // 一个信息文件，里面存
 const webpackConfig = require("../webpack.config.js")
 const named = require('vinyl-named') // vinyl-named 插件可以解决多页面开发的问题。不至于每次加页面都要去webpack 修改 entry 和 output
 const webpack = require('webpack-stream')
-
+const clc = require('cli-color')
+const eslint = require('gulp-eslint'); // js代码校验
+// const eslintConfig = require('../../.eslintrc')
 let knownOptions = {
     string: ['name'],
     default: {
@@ -34,7 +36,6 @@ let args = minimist(process.argv.slice(2), knownOptions);
 const runProject = 'project/' + args.name // 开发环境目录
 const serveProject = 'project-serve/' + args.name // 开发编译后浏览器真正运行的环境目录
 const buildProject = 'dist/' + args.name // 打包目录
-
 
 // html处理
 const html = () => {
@@ -87,6 +88,18 @@ const js = () => {
         }))
         .pipe(webpack(webpackConfig))
         .pipe(plumber())
+        .pipe(eslint({
+            'rules': {
+                'quotes': [1, 'double'],
+                'semi': [1, 'always']
+            }
+        }))
+        // eslint.format() outputs the lint results to the console.
+        // Alternatively use eslint.formatEach() (see Docs).
+        .pipe(eslint.format())
+        // To have the process exit with an error code (1) on
+        // lint error, return the stream and pipe to failAfterError last.
+        .pipe(eslint.failAfterError())
         .pipe(gulp.dest(serveProject + '/js'))
 }
 
@@ -135,8 +148,8 @@ const serve = () => {
     gulp.series(html, scss, images, js, devServer, watcher)()
 }
 
-function log(text) {
-    console.log(text)
+function log(str, color) {
+    console.log(clc.bold[color](str))
 }
 
 module.exports = serve

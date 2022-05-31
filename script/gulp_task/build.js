@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 16:21:02
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-22 22:39:42
+ * @LastEditTime: 2022-05-31 20:59:22
  * @FilePath: /gulp4-webpack/script/gulp_task/build.js
  * @Description: Do not edit
  */
@@ -21,6 +21,9 @@ const autoPrefixer = require('gulp-autoprefixer'); // css 浏览器样式前缀
 const cleanCss = require('gulp-clean-css') // 压缩 css 的插件，scss一样有效
 const sourcemaps = require('gulp-sourcemaps'); // 一个信息文件，里面存储了代码打包转换后的位置信息，实质是一个 json 描述文件，维护了打包前后的代码映射关系，报错时可以成功定位到具体的报错位置
 const imagemin = require('gulp-imagemin') // 压缩图片的插件 cnpm安装，npm安装有报错
+const webpackConfig = require("../webpack.config.js")
+const named = require('vinyl-named') // vinyl-named 插件可以解决多页面开发的问题。不至于每次加页面都要去webpack 修改 entry 和 output
+const webpack = require('webpack-stream')
 
 let knownOptions = {
     string: ['name'],
@@ -97,6 +100,10 @@ const images = () => {
 const js = () => {
     return gulp.src([runProject + '/js/**/*.js'])
         .pipe(changed(runProject + '/js/**/'))
+        .pipe(named(function (file) {
+            return file.relative.slice(0, -path.extname(file.path).length)
+        }))
+        .pipe(webpack(webpackConfig))
         .pipe(plumber())
         .pipe(uglify())
         .pipe(gulp.dest(buildProject + '/js'))

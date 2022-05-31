@@ -2,7 +2,7 @@
  * @Author: tywd
  * @Date: 2022-05-22 23:16:11
  * @LastEditors: tywd
- * @LastEditTime: 2022-05-23 19:50:46
+ * @LastEditTime: 2022-05-31 20:56:45
  * @FilePath: /gulp4-webpack/script/webpack.config.js
  * @Description: Do not edit
  */
@@ -12,6 +12,8 @@ const config = require('./config')
 const {
     VueLoaderPlugin
 } = require('vue-loader');
+
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
     mode: 'development',
@@ -62,6 +64,10 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerPort: 9091,
+            generateStatsFile: false
+        }),
     ],
     resolve: {
         alias: {
